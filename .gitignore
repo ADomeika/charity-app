@@ -1,0 +1,5 @@
+config
+node_modules
+build
+hooks
+ecosystem.config.js
