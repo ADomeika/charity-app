@@ -17,6 +17,7 @@ const deploy = (res) => {
 router.post(process.env.DEPLOY_ROUTE, (req, res) => {
   const sender = req.body.sender
   const branch = req.body.ref
+  if (!branch) return res.status(500).send()
   if (branch.includes('master') && sender.login === process.env.GIT_USERNAME) {
     deploy(res)
   } else {
