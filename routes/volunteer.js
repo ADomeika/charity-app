@@ -6,8 +6,11 @@ const router = new express.Router()
 
 // Create a volunteer
 router.post('', auth, async (req, res) => {
-  // Make sure body has all required fields
-  // name, description, imgSrc
+  const fields = Object.keys(req.body)
+  const requiredFields = ['name', 'description', 'imgSrc']
+  const isValidOperation = fields.every((field) => requiredFields.includes(field))
+  if (!isValidOperation) return res.status(400).send({ error: 'Missing or invalid fields!' })
+
   try {
     const volunteer = new Volunteer(req.body)
     await volunteer.save()
@@ -19,10 +22,15 @@ router.post('', auth, async (req, res) => {
 
 // Edit a volunteer
 router.patch('/:id', auth, async (req, res) => {
-  const updates = req.body
+  const updates = Object.keys(req.body)
+  const allowedUpdates = ['name', 'description', 'imgSrc']
+  const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+  if (!isValidOperation) return res.status(400).send({ error: 'Invalid updates!' })
+
   try {
-    const volunteer = await Volunteer.findByIdAndUpdate(req.params.id, updates, { new: true })
+    const volunteer = await Volunteer.findById(req.params.id)
     if (!volunteer) return res.status(404).json({ error: 'Can not find a volunteer' })
+    updates.forEach((update) => volunteer[update] = req.body[update])
     res.json(volunteer)
   } catch (error) {
     if (error.kind === 'ObjectId') return res.status(404).json({ error: 'Can not find a volunteer' })

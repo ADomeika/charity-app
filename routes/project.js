@@ -32,7 +32,7 @@ router.patch('/:id', auth, async (req, res) => {
   const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
   if (!isValidOperation) return res.status(400).send({ error: 'Invalid updates!' })
   try {
-    let project = await Project.findById(req.params.id)
+    const project = await Project.findById(req.params.id)
     if (!project) return res.status(404).json({ error: 'Can not find project' })
 
     const user = await User.findById(req.user.id)
