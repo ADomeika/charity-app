@@ -13,7 +13,7 @@ const Projects = () => {
         const response = await axios.get('/api/projects')
         setProjects(response.data)
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
     fetchProjects()

@@ -81,7 +81,7 @@ router.get('', async (req, res) => {
     res.json(projects)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ error: 'Server Error' })
+    res.status(500).json({ error })
   }
 })
 
