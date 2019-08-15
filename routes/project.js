@@ -78,6 +78,7 @@ router.get('', async (req, res) => {
     const projects = await Project.find().populate('createdBy', 'name')
     res.json(projects)
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'Server Error' })
   }
 })

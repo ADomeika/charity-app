@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "dev": "env-cmd -f ./config/dev.env nodemon index.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "dev": "env-cmd -f ./config/dev.env nodemon index.js"
   },
   "keywords": [],
   "author": "",
