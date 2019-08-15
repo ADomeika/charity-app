@@ -21,10 +21,10 @@ mongoose.connect(process.env.MONGODB_URL, {
 
 app.use(cors(corsOptions))
 app.use(express.json({ extended: false }))
-app.use('/api/auth', require('./routes/auth'))
-app.use('/api/projects', require('./routes/project'))
-app.use('/api/volunteers', require('./routes/volunteer'))
-app.use('/api/users', require('./routes/user'))
+app.use('/api/auth', cacheControl, require('./routes/auth'))
+app.use('/api/projects', cacheControl, require('./routes/project'))
+app.use('/api/volunteers', cacheControl, require('./routes/volunteer'))
+app.use('/api/users', cacheControl, require('./routes/user'))
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/api', require('./routes/deploy'))
