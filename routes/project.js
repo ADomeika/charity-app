@@ -7,7 +7,7 @@ const auth = require('../middleware/auth')
 const router = new express.Router()
 
 // Create a project
-router.post('', auth, async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const fields = Object.keys(req.body)
   const requiredFields = ['name', 'description', 'imgSrc']
   const isValidOperation = fields.every((field) => requiredFields.includes(field))
@@ -73,7 +73,7 @@ router.delete('/:id', auth, async (req, res) => {
 })
 
 // Get all projects
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
   console.log('request incoming')
   try {
     const projects = await Project.find().populate('createdBy', 'name')
