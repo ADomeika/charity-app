@@ -74,14 +74,12 @@ router.delete('/:id', auth, async (req, res) => {
 
 // Get all projects
 router.get('', async (req, res) => {
-  const projects = await Project.find()
-  res.json(projects)
-  // try {
-  //   const projects = await Project.find().populate('createdBy', 'name')
-  //   res.json(projects)
-  // } catch (error) {
-  //   res.status(500).json({ error })
-  // }
+  try {
+    const projects = await Project.find().populate('createdBy', 'name')
+    res.json(projects)
+  } catch (error) {
+    res.status(500).json({ error })
+  }
 })
 
 // Get a project
