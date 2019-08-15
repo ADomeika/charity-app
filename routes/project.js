@@ -74,8 +74,10 @@ router.delete('/:id', auth, async (req, res) => {
 
 // Get all projects
 router.get('', async (req, res) => {
+  console.log('request incoming')
   try {
     const projects = await Project.find().populate('createdBy', 'name')
+    console.log('projects :', projects)
     res.json(projects)
   } catch (error) {
     console.log(error)
